@@ -8,10 +8,11 @@
 * [1. initialize model configuration](#model-config)
 * [2. pre-process](#pre-process)
     * [2.1 import geoframework](#import-geoframework)
-    * [2.2 generate material ids and river faces](#material-river-face)
-    * [2.3 generate initial head for the domain](#initial-head)
-    * [2.4 generate river boundary](#river-bc)
-    * [2.5 generate PFLOTRAN input deck](#input_deck)
+    * [2.2 retrive data from SQL database](#SQL)
+    * [2.3 generate material ids and river faces](#material-river-face)
+    * [2.4 generate initial head for the domain](#initial-head)
+    * [2.5 generate river boundary](#river-bc)
+    * [2.6 generate PFLOTRAN input deck](#input_deck)
 * [3. submit and run jobs on NERSC](#submit-and-run)
 * [4. post-process](#post-process)
     * [4.1 plot tracer/age in Paraview](#plot-in-paraview)
@@ -64,9 +65,27 @@ Currently, there are six different geologic units. The hydraulic properties are 
 
 ![basalt2d_model_100m.jpg](figures/basalt2d_model_100m.jpg)
 
+<a id='SQL'></a>
+
+#### 2.2 retrive data from SQL database
+
+Run [HEIS_data_retriever.ipynb](HEIS_data_retriever.ipynb) to retrive data from HEIS. The common database names are listed here:
+
+|Table name| Description|
+|----------|------------|
+|pflow.GW_SAMPLE_RESULTS_MV|HEIS--ALL groundwater chemistry data|
+|pflow.well_construction_mv|HEIS--well construction data, includes depth, casing, and other fields|
+|pflow.HYDRAULIC_HEAD_MV|HEIS--manual water level data|
+|pflow.tblWells|HEIS--AWLN well information|
+|pflow.tblProcessedData|HEIS--AWLN raw data (hourly)|
+|pflow.vAwln|a view of Awln data that includes Hanford well names|
+
+note: table name above begin with "v" indiates it is a view that Patrick created and it is not a token from HEIS, rather , it is a query based on the HEIS database.
+
+
 <a id='material-river-face'></a>
 
-#### 2.2 generate material ids and river faces
+#### 2.3 generate material ids and river faces
 
 Run [material_river_face.ipynb](material_river_face.ipynb) to generate material ids and find all river cells. Material ids are listed below:
 
@@ -82,7 +101,7 @@ Run [material_river_face.ipynb](material_river_face.ipynb) to generate material 
 
 <a id='initial-head'></a>
 
-#### 2.3 generate initial head for the domain
+#### 2.4 generate initial head for the domain
 
 Run [initial_head.ipynb](initial_head.ipynb) to generate initial head for the model
 
@@ -90,13 +109,13 @@ Run [initial_head.ipynb](initial_head.ipynb) to generate initial head for the mo
 
 <a id='river-bc'></a>
 
-#### 2.4 generate river boundary 
+#### 2.5 generate river boundary 
 
 Run [river_bc.ipynb](river_bc.ipynb) to generate river bc from Mass1 simulations.
 
 <a id='input_deck'></a>
 
-#### 2.5 generate PFLOTRAN input deck 
+#### 2.6 generate PFLOTRAN input deck 
 
 Run [PFLOTRAN_input.ipynb](PFLOTRAN_input.ipynb) to generate PFLOTRAN input deck.
 
