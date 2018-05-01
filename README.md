@@ -20,6 +20,7 @@
     * [4.3 plot flux across riverbed from river cells](#plot-flux-from-river-cells)
         * [4.3.1 pre-process h5 output](#plot-flux-from-river-cells-1)
         * [4.3.2 generate flux bar plot](#plot-flux-from-river-cells-2)
+    * [4.4 plot groundwater level](#plot-wl)
        
 
 You can also find my github repository [here](https://github.com/pshuai88/notebook).
@@ -69,7 +70,7 @@ Currently, there are six different geologic units. The hydraulic properties are 
 
 #### 2.2 retrive data from SQL database
 
-Run [HEIS_data_retriever.ipynb](HEIS_data_retriever.ipynb) to retrive data from HEIS. The common database names are listed here:
+* Run [HEIS_data_retriever.ipynb](HEIS_data_retriever.ipynb) to retrive **well data** from HEIS. The common database names are listed here:
 
 |Table name| Description|
 |----------|------------|
@@ -81,6 +82,10 @@ Run [HEIS_data_retriever.ipynb](HEIS_data_retriever.ipynb) to retrive data from 
 |pflow.vAwln|a view of Awln data that includes Hanford well names|
 
 note: table name above begin with "v" indiates it is a view that Patrick created and it is not a token from HEIS, rather , it is a query based on the HEIS database.
+
+* Run external GIS application (ArcGIS/QGIS) to retrive **GIS data** (such as well locations, geologic units and plumes) using PostgreSQL/PostGIS access.
+
+![qgis](figures/QGIS.png)
 
 
 <a id='material-river-face'></a>
@@ -137,7 +142,9 @@ Post-process data from PFLOTRAN outputs and generate plots.
 
 Run [plot_in_Paraview.ipynb](plot_in_Paraview.ipynb) to generate plots using Paraview
 
-![age.0371.jpg](figures/age.0376.jpg)
+![river_stage](figures/stage_animation.gif)
+
+![age.2011.2015.gif](figures/age.2011.2015.gif)
 
 ![tracer_2011_2015.gif](figures/tracer_2011_2015.gif)
 
@@ -166,5 +173,13 @@ Run [plot_flux_from_river_cells-1.ipynb](plot_flux_from_river_cells-1.ipynb) to 
 Run [plot_flux_from_river_cells-2.ipynb](plot_flux_from_river_cells-2.ipynb) to generate bar plots for riverbed flux.
 
 ![flux_bar.png](figures/flux_bar.png)
+
+
+<a id='plot-wl'></a>
+#### 4.4 plot groundwater level
+
+Run [plot_gw_level.ipynb](plot_gw_level.ipynb) to generate groundwater level animation.
+
+![wl](figures/wl_animation.gif)
 
 [return to the top](#top)
