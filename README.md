@@ -18,8 +18,6 @@
     * [4.1 plot tracer/age in Paraview](#plot-in-paraview)
     * [4.2 plot flux across riverbed from mass balance output](#plot-flux-from-massbalance)
     * [4.3 plot flux across riverbed from river cells](#plot-flux-from-river-cells)
-        * [4.3.1 pre-process h5 output](#plot-flux-from-river-cells-1)
-        * [4.3.2 generate flux bar plot](#plot-flux-from-river-cells-2)
     * [4.4 plot groundwater level](#plot-wl)
        
 
@@ -152,28 +150,17 @@ Run [plot_in_Paraview.ipynb](plot_in_Paraview.ipynb) to generate plots using Par
 
 #### 4.2 plot flux across riverbed from mass balance output 
 
-Run [plot_flux_from_massBalance.ipynb](plot_flux_from_massBalance.ipynb) to generate flux across riverbed using mass balance ouput.
+Run [plot_flux_from_massBalance.ipynb](plot_flux_from_massBalance.ipynb) to generate finger flux, net gaining and flux snapshots.
+
+![finger_flux.png](figures/finger_flux.png)
 
 <a id='plot-flux-from-river-cells'></a>
 
 #### 4.3 plot flux across riverbed from river cells
 
-<a id='plot-flux-from-river-cells-1'></a>
-
-![finger_flux.png](figures/finger_flux.png)
-
-##### 4.3.1 pre-process h5 output 
-
-Run [plot_flux_from_river_cells-1.ipynb](plot_flux_from_river_cells-1.ipynb) to pre-process model snapshots.
-
-<a id='plot-flux-from-river-cells-2'></a>
-
-##### 4.3.2 generate flux bar plot 
-
-Run [plot_flux_from_river_cells-2.ipynb](plot_flux_from_river_cells-2.ipynb) to generate bar plots for riverbed flux.
+Run [plot_flux_from_river_cells.ipynb](plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
 
 ![flux_bar.png](figures/flux_bar.png)
-
 
 <a id='plot-wl'></a>
 #### 4.4 plot groundwater level
