@@ -1,55 +1,97 @@
 
 <a id='top'></a>
 
-# Workflow for setting up reach scale model
+# Workflow for simulations in PFLOTRAN
+
+The following workflow provides some guidance on running flow and transport model using [PFLOTRAN](https://www.pflotran.org/). This workflow has been used to generate a reach scale flow and transport model for the Hanford Reach, Washington. The simulation results have recently been published in Water Resources Research. 
+
+**Shuai, P.**, X. Chen, X. Song, G. Hammond, J. Zachara, P. Royer, H. Ren, W. Perkins, M. Richmond, M. Huang (2018). Dam Operations and Subsurface Hydrogeology Control Dynamics of Hydrologic Exchange Flows in a Regulated River Reach. *Water Resources Research*. https://doi.org/10.1029/2018WR024193
 
 ## Table of Contents
 
-* [1. initialize model configuration](#model-config)
-* [2. pre-process](#pre-process)
-    * [2.1 import geoframework](#import-geoframework)
-    * [2.2 retrive data from SQL database](#SQL)
-    * [2.3 generate material ids and river faces](#material-river-face)
-    * [2.4 generate initial head for the domain](#initial-head)
-    * [2.5 generate river boundary](#river-bc)
-    * [2.6 generate PFLOTRAN input deck](#input_deck)
-* [3. submit and run jobs on NERSC](#submit-and-run)
-* [4. post-process](#post-process)
-    * [4.1 plot tracer/age in Paraview](#plot-in-paraview)
-    * [4.2 plot flux across riverbed from mass balance output](#plot-flux-from-massbalance)
-    * [4.3 plot flux across riverbed from river cells](#plot-flux-from-river-cells)
-    * [4.4 plot groundwater level](#plot-wl)
-       
+* [Model pre-processes](#pre-process)
+    * [Model inputs](#inputs)
+    * [Import geoframework](#import-geoframework)
+    * [Generate material ids and river faces](#material-river-face)
+    * [Generate initial head and inland boundary](#initial-head)
+    * [Generate river boundary](#river-bc)
+* [PFLOTRAN input deck](#input_deck)
+* [Submit and run jobs on NERSC](#submit-and-run)
+* [Post-processes](#post-process)
+    * [Visulization in Paraview](#plot-in-paraview)
+    * [Plot flux across riverbed from mass balance output](#plot-flux-from-massbalance)
+    * [Plot flux across riverbed from river cells](#plot-flux-from-river-cells)
+    * [Plot groundwater level](#plot-wl)
+    * [Plot groundwater age](#plot-age)
+    * [Plot solute contour](#plot-solute)
+    * [Plot simulation against observation](#plot-simu-obs)    
+* [Miscellaneous](#miscellaneous)
+    * [Import data using SQL](#sql)
+    * [Plot groundwater chemistry data](#plot-chem)
+    * [Batch process figures in ImageMagick](#imagemagick)
+    * [Spectral analysis](#spectral)
 
-You can also find my github repository [here](https://github.com/pshuai88/notebook).
-
-<a id='model-config'></a>
-
-### 1. initialize model configuration 
-
-Run [model_config.ipynb](model_config.ipynb) to configurate model setup (model domain, parameters...)
-
-[return to the top](#top)
-
-![map_study_area_v3.jpeg](figures/map_study_area_v3.jpeg)
-
-![HFR_model_3d_100m.png](figures/HFR_model_3d_100m.png)
 
 <a id='pre-process'></a>
 
-### 2.  pre-process
+### Model pre-processes
 
-Provide PFLOTRAN inputs for the model.
+Run [PFLOTRAN_preprocesses.ipynb](PFLOTRAN_preprocesses.ipynb) to configurate model setup (model domain, parameters, inital conditions and boundary conditions and etc.) This Jupyter Notebook uses R as the kernel.
+
+<a id='inputs'></a>
+#### Model inputs
+This section gathers model parameters such as dimension, coordinates for the structured grids.
+
+<a id='import-geoframework'></a>
+#### Import geoframework
+This section gathers the geologic framework for the model. Each geologic layer is an Ascii file that contains the topography for each geologic unit. It can be interpolated to the model grids.
+
+<a id='material-river-face'></a>
+#### Generate material ids and river faces
+This section generates material id for each grid cell and finds the river boundary cells (where river stage is applied).
+**Output**: `Material.h5`
+
+A sample material ids are listed below. Please note id = 0 is reserved for inactive cells.
+
+|**Material id**|**Unit**|
+|-----------|-----|
+|0|Inactive cells|
+|1|Hf|
+|2|Cc|
+|3|Rtf|
+|4|Re|
+|5|Rlm|
+|6|Ra|
+
+![xx.jpeg](figures/xx.jpeg)
+A snapshot of the `Material.h5`
+
+<a id='initial-head'></a>
+#### Generate initial head and inland boundary
+This section generates the initial head over the domain and the head boundary at model bounds.
+**Output**: `Initial.h5` and `BC.h5`
+
+![xx.jpeg](figures/xx.jpeg)
+A snapshot of the `Material.h5`
+
+<a id='initial-head'></a>
+#### Generate river boundary
+This section generates transient river stage boundary. 
+**Output**: `Gradient.txt` and `Datum.txt`
+
+![xx.jpeg](figures/xx.jpeg)
+A snapshot of the `Material.h5`
 
 [return to the top](#top)
 
-<a id='import-geoframework'></a>
+<a id='input_deck'></a>
+### PFLOTRAN input deck
+Run [PFLOTRAN_input_deck.ipynb](PFLOTRAN_input_deck.ipynb) to generate PFLOTRAN input deck for the model. This notebook uses `R` as the kernel. Right now, the `sink` and `cat` function do not work properly in Jupyter Notebook. The alternative is to export this notebook as `R script`, and use `Rstudio` to execute.
 
-#### 2.1 import geoframework
+A set of parameters can be set: `model run time, timestep, hydraulic properties, river conductance, observation wells, output variables and file format and etc.` 
+**Output**: `pflotran.in`
 
-Run [import_geoframework.ipynb](import_geoframework.ipynb) to import geoframework for each unit.
-
-Currently, there are six different geologic units. The hydraulic properties are listed below:
+A sample hydraulic properties are listed below:
 
 | Unit | Permeability ($m^{2}$) | Hydraulic conductivity ($m/d$) |
 |------|:---------------:|-------------:|
@@ -60,14 +102,88 @@ Currently, there are six different geologic units. The hydraulic properties are 
 |Ringold Lower Mud (Rlm)|1e-12|1|
 |Ringold A (Ra)|1e-12|1|
 
-![hanford2d_model_100m.jpg](figures/hanford2d_model_100m.jpg)
+[return to the top](#top)
 
-![basalt2d_model_100m.jpg](figures/basalt2d_model_100m.jpg)
+<a id='submit-and-run'></a>
+### Submit and run jobs on NERSC
+[run_job_on_NERSC.ipynb](run_job_on_NERSC.ipynb) has some batch script to submit, monitor and modify jobs on NERSC.
 
-<a id='SQL'></a>
+An example batch script:
 
-#### 2.2 retrive data from SQL database
+```bash
+#!/bin/bash -l
 
+#SBATCH -A m1800
+#SBATCH -N 171
+#SBATCH -t 48:00:00
+#SBATCH -L SCRATCH  
+#SBATCH -J job_name
+#SBATCH --qos regular
+#SBATCH --mail-type ALL
+#SBATCH --mail-user <user_email>
+
+cd $SLURM_SUBMIT_DIR
+
+srun -n 4096 /global/project/projectdirs/pflotran/pflotran-edison/src/pflotran/pflotran -pflotranin pflotran.in
+```
+[return to the top](#top)
+
+<a id='post-process'></a>
+### Post-processes 
+This section has some `python` script for post-processing data from PFLOTRAN outputs and generate plots.
+
+<a id='plot-in-paraview'></a>
+#### Visulization in Paraview
+[Paraview](https://www.paraview.org/) can be easily used to open PFLOTRAN output `HDF5` file (i.e. `pflotran.h5`). It visulizes the model in 3-D and can be used to export plots and animations. For detailed instruction, please take a look at [Paraview manual](https://www.paraview.org/paraview-guide/). 
+
+Some snapshots from the software.
+
+[return to the top](#top)
+
+<a id='plot-flux-from-massbalance'></a>
+#### Plot flux across riverbed from mass balance output 
+Run [NERSC-plot_flux_from_massBalance.ipynb](NERSC-plot_flux_from_massBalance.ipynb) to generate flux heat map, net gaining and flux snapshots.
+
+![xx.png](figures/xx.png)
+
+<a id='plot-flux-from-river-cells'></a>
+#### Plot flux across riverbed from river cells
+Run [NERSC-plot_flux_from_river_cells.ipynb](NERSC-plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
+
+![xx.png](figures/xx.png)
+
+<a id='plot-wl'></a>
+#### Plot groundwater level
+Run [NERSC-plot_gw_level.ipynb](NERSC-plot_gw_level.ipynb) to generate groundwater level contours.
+
+![xx](figures/xx.gif)
+
+<a id='plot-age'></a>
+#### Plot groundwater age
+Run [NERSC-plot_gw_age.ipynb](NERSC-plot_gw_age.ipynb) to generate groundwater age contours.
+
+![xx](figures/xx.gif)
+
+<a id='plot-solute'></a>
+#### Plot solute contour
+Run [NERSC-plot_solute_contour.ipynb](NERSC-plot_solute_contour.ipynb) to generate solute concentration plots.
+
+![xx](figures/xx.gif)
+
+<a id='plot-simu-obs'></a>
+#### Plot simulation against observation
+Run [NERSC-plot_simu_obs_well_data.ipynb](NERSC-plot_simu_obs_well_data.ipynb) to generate tracer breakthough curves.
+
+![xx](figures/xx.gif)
+
+[return to the top](#top)
+
+<a id='miscellaneous'></a>
+### Miscellaneous
+Other notebooks that are used for post-processing.
+
+<a id='sql'></a>
+#### Import data using SQL
 * Run [HEIS_data_retriever.ipynb](HEIS_data_retriever.ipynb) to retrive **well data** from HEIS. The common database names are listed here:
 
 |Table name| Description|
@@ -85,88 +201,21 @@ note: table name above begin with "v" indiates it is a view that Patrick created
 
 ![qgis](figures/QGIS.png)
 
+<a id='plot-chem'></a>
+#### Plot groundwater chemistry data
+* Run [NERSC-plot_GW_chemical_dataset.ipynb](NERSC-plot_GW_chemical_dataset.ipynb) to analyze groundwater chemistry data downloaded from HEIS.
 
-<a id='material-river-face'></a>
+<a id='imagemagick'></a>
+#### Batch process figures in ImageMagick
+* Run [ImageMagic.ipynb](ImageMagic.ipynb) to batch process figures using [ImageMagic](https://www.imagemagick.org/).
 
-#### 2.3 generate material ids and river faces
-
-Run [material_river_face.ipynb](material_river_face.ipynb) to generate material ids and find all river cells. Material ids are listed below:
-
-|Material id| Unit|
-|-----------|-----|
-|0|Inactive cells|
-|1|Hf|
-|2|Cc|
-|3|Rtf|
-|4|Re|
-|5|Rlm|
-|6|Ra|
-
-<a id='initial-head'></a>
-
-#### 2.4 generate initial head for the domain
-
-Run [initial_head.ipynb](initial_head.ipynb) to generate initial head for the model
-
-![initial_head_200m_2007-01-01.jpg](figures/initial_head_200m_2007-01-01.jpg)
-
-<a id='river-bc'></a>
-
-#### 2.5 generate river boundary 
-
-Run [river_bc.ipynb](river_bc.ipynb) to generate river bc from Mass1 simulations.
-
-<a id='input_deck'></a>
-
-#### 2.6 generate PFLOTRAN input deck 
-
-Run [PFLOTRAN_input.ipynb](PFLOTRAN_input.ipynb) to generate PFLOTRAN input deck.
-
-<a id='submit-and-run'></a>
-
-### 3. submit and run jobs on NERSC 
-
-Run [submit_job.ipynb](submit_job.ipynb) to submit and run jobs on NERSC.
-
-<a id='post-process'></a>
-
-### 4. post-process 
-
-Post-process data from PFLOTRAN outputs and generate plots.
-
-<a id='plot-in-paraview'></a>
-
-#### 4.1 plot tracer/age in Paraview 
-
-Run [plot_in_Paraview.ipynb](plot_in_Paraview.ipynb) to generate plots using Paraview
-
-![river_stage](figures/stage_animation.gif)
-
-![age.2011.2015.gif](figures/age.2011.2015.gif)
-
-![tracer_2011_2015.gif](figures/tracer_2011_2015.gif)
-
-<a id='plot-flux-from-massbalance'></a>
-
-#### 4.2 plot flux across riverbed from mass balance output 
-
-Run [plot_flux_from_massBalance.ipynb](plot_flux_from_massBalance.ipynb) to generate finger flux, net gaining and flux snapshots.
-
-![finger_flux.png](figures/finger_flux.png)
-
-<a id='plot-flux-from-river-cells'></a>
-
-#### 4.3 plot flux across riverbed from river cells
-
-Run [plot_flux_from_river_cells.ipynb](plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
-
-![flux_bar.png](figures/flux_bar.png)
-
-<a id='plot-wl'></a>
-#### 4.4 plot groundwater level
-
-Run [plot_gw_level.ipynb](plot_gw_level.ipynb) to generate groundwater level animation.
-
-![wl](figures/wl_animation.gif)
+<a id='spectral'></a>
+#### Spectral analysis
+* Run [river_stage_flux_spectral_analysis.ipynb](river_stage_flux_spectral_analysis.ipynb) to use spectral analysis (`FFT` and `Wavelet`) in `R` for time series data.
 
 [return to the top](#top)
+
+
+
+
+
