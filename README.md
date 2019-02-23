@@ -7,6 +7,8 @@ The following workflow provides some guidance on running flow and transport mode
 
 **Shuai, P.**, X. Chen, X. Song, G. Hammond, J. Zachara, P. Royer, H. Ren, W. Perkins, M. Richmond, M. Huang (2018). Dam Operations and Subsurface Hydrogeology Control Dynamics of Hydrologic Exchange Flows in a Regulated River Reach. *Water Resources Research*. https://doi.org/10.1029/2018WR024193
 
+*Software needed in the workflow*: [Jupyter Notebook](https://jupyter.org), [Paraview](https://www.paraview.org), [HDFView](www.hdfgroup.org)
+
 ## Table of Contents
 
 * [Model pre-processes](#pre-process)
@@ -30,12 +32,11 @@ The following workflow provides some guidance on running flow and transport mode
     * [Plot groundwater chemistry data](#plot-chem)
     * [Batch process figures in ImageMagick](#imagemagick)
     * [Spectral analysis](#spectral)
+    * [Rewrite HDF5](#h5)
 
 
 <a id='pre-process'></a>
-
 ### Model pre-processes
-
 Run [PFLOTRAN_preprocesses.ipynb](PFLOTRAN_preprocesses.ipynb) to configurate model setup (model domain, parameters, inital conditions and boundary conditions and etc.) This Jupyter Notebook uses R as the kernel.
 
 <a id='inputs'></a>
@@ -63,32 +64,55 @@ A sample material ids are listed below. Please note id = 0 is reserved for inact
 |5|Rlm|
 |6|Ra|
 
-![xx.jpeg](figures/xx.jpeg)
-A snapshot of the `Material.h5`
+|![Material_h5.png](figures/Material_h5.png)|
+|----|
+|*A snapshot of the `Material.h5`*|
 
 <a id='initial-head'></a>
 #### Generate initial head and inland boundary
 This section generates the initial head over the domain and the head boundary at model bounds.
 **Output**: `Initial.h5` and `BC.h5`
 
-![xx.jpeg](figures/xx.jpeg)
-A snapshot of the `Material.h5`
+|![Initial_h5.png](figures/Initial_h5.png)|
+|----|
+|*A snapshot of the `Initial.h5`*|
+
+|![BC_h5.png](figures/BC_h5.png)|
+|----|
+|*A snapshot of the `BC.h5`*|
 
 <a id='initial-head'></a>
 #### Generate river boundary
 This section generates transient river stage boundary. 
 **Output**: `Gradient.txt` and `Datum.txt`
 
-![xx.jpeg](figures/xx.jpeg)
-A snapshot of the `Material.h5`
+*Note: the default time unit in external file is in seconds. You can change the time unit by specifying TIME_UNITS hr as the header in .txt file.* See this [example](https://www.pflotran.org/documentation/user_guide/cards/pages/rank_three.html#rank-three).
+
+An example of the `Gradient.txt` (header should not go into the .txt file):
+
+|*time (sec)*|*grad_x*|*grad_y*|*grad_z*|
+|:--:|:--:|:--:|:--:|
+|0.|4E-05|4E-05|0|
+
+An example of the `Datum.txt` (header should not go into the .txt file):
+
+|*time (sec)*|*x*|*y*|*z (stage)*|
+|:--:|:--:|:--:|:--:|
+|0.|1000|2000|105.6|
+
+|![model_domain.png](figures/model_domain.png)|
+|----|
+|*Figure showing model domain*|
+
+
 
 [return to the top](#top)
 
 <a id='input_deck'></a>
 ### PFLOTRAN input deck
-Run [PFLOTRAN_input_deck.ipynb](PFLOTRAN_input_deck.ipynb) to generate PFLOTRAN input deck for the model. This notebook uses `R` as the kernel. Right now, the `sink` and `cat` function do not work properly in Jupyter Notebook. The alternative is to export this notebook as `R script`, and use `Rstudio` to execute.
+Run [PFLOTRAN_input_deck.ipynb](PFLOTRAN_input_deck.ipynb) to generate PFLOTRAN input deck for the model. This notebook uses `R` as the kernel. Right now, the `sink` and `cat` function do not work properly in Jupyter Notebook. The alternative is to export this notebook as `R script`, and use `Rstudio` to execute. 
 
-A set of parameters can be set: `model run time, timestep, hydraulic properties, river conductance, observation wells, output variables and file format and etc.` 
+A set of parameters can be set: `model run time, timestep, hydraulic properties, river conductance, observation wells, output variables and file format and etc.` A sample pflotran input deck can be found [here](https://www.pflotran.org/documentation/user_guide/how_to/simple_flow_problem.html#simple-flow-problem).
 **Output**: `pflotran.in`
 
 A sample hydraulic properties are listed below:
@@ -136,7 +160,10 @@ This section has some `python` script for post-processing data from PFLOTRAN out
 #### Visulization in Paraview
 [Paraview](https://www.paraview.org/) can be easily used to open PFLOTRAN output `HDF5` file (i.e. `pflotran.h5`). It visulizes the model in 3-D and can be used to export plots and animations. For detailed instruction, please take a look at [Paraview manual](https://www.paraview.org/paraview-guide/). 
 
-Some snapshots from the software.
+
+|![paraview_snapshot.png](figures/paraview_snapshot.png)|
+|:----:|
+|*A snapshot of Paraview*|
 
 [return to the top](#top)
 
@@ -144,37 +171,45 @@ Some snapshots from the software.
 #### Plot flux across riverbed from mass balance output 
 Run [NERSC-plot_flux_from_massBalance.ipynb](NERSC-plot_flux_from_massBalance.ipynb) to generate flux heat map, net gaining and flux snapshots.
 
-![xx.png](figures/xx.png)
+|![flux_heatmap.jpg](figures/flux_heatmap.jpg)|
+|:----:|
+|*Flux heat map generated from the notebook*|
 
 <a id='plot-flux-from-river-cells'></a>
 #### Plot flux across riverbed from river cells
 Run [NERSC-plot_flux_from_river_cells.ipynb](NERSC-plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
 
-![xx.png](figures/xx.png)
+|![flux_river_cell.jpg](figures/flux_river_cell.jpg)|
+|:----:|
+|*Flux plot generated from the notebook*|
 
 <a id='plot-wl'></a>
 #### Plot groundwater level
 Run [NERSC-plot_gw_level.ipynb](NERSC-plot_gw_level.ipynb) to generate groundwater level contours.
 
-![xx](figures/xx.gif)
+|![wl.png](figures/wl.png)|
+|:----:|
+|*Groundwater contour plot generated from the notebook*|
 
 <a id='plot-age'></a>
 #### Plot groundwater age
 Run [NERSC-plot_gw_age.ipynb](NERSC-plot_gw_age.ipynb) to generate groundwater age contours.
 
-![xx](figures/xx.gif)
-
 <a id='plot-solute'></a>
 #### Plot solute contour
 Run [NERSC-plot_solute_contour.ipynb](NERSC-plot_solute_contour.ipynb) to generate solute concentration plots.
 
-![xx](figures/xx.gif)
+|![tracer.png](figures/tracer.png)|
+|:----:|
+|*Groundwater tracer plot generated from the notebook*|
 
 <a id='plot-simu-obs'></a>
 #### Plot simulation against observation
 Run [NERSC-plot_simu_obs_well_data.ipynb](NERSC-plot_simu_obs_well_data.ipynb) to generate tracer breakthough curves.
 
-![xx](figures/xx.gif)
+|![Well_399-1-1_sup.jpg](figures/Well_399-1-1_sup.jpg)|
+|:----:|
+|*Tracer BTC against observation data plot generated from the notebook*|
 
 [return to the top](#top)
 
@@ -199,8 +234,6 @@ note: table name above begin with "v" indiates it is a view that Patrick created
 
 * Run external GIS application (ArcGIS/QGIS) to retrive **GIS data** (such as well locations, geologic units and plumes) using PostgreSQL/PostGIS access.
 
-![qgis](figures/QGIS.png)
-
 <a id='plot-chem'></a>
 #### Plot groundwater chemistry data
 * Run [NERSC-plot_GW_chemical_dataset.ipynb](NERSC-plot_GW_chemical_dataset.ipynb) to analyze groundwater chemistry data downloaded from HEIS.
@@ -212,6 +245,10 @@ note: table name above begin with "v" indiates it is a view that Patrick created
 <a id='spectral'></a>
 #### Spectral analysis
 * Run [river_stage_flux_spectral_analysis.ipynb](river_stage_flux_spectral_analysis.ipynb) to use spectral analysis (`FFT` and `Wavelet`) in `R` for time series data.
+
+<a id='h5'></a>
+#### Rewrite HDF5
+* Run [rewrite_hdf5_file.ipynb](rewrite_hdf5_file.ipynb) to rewrite PFLOTRAN output `HDF5` file.
 
 [return to the top](#top)
 
