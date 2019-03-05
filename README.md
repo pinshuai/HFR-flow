@@ -106,7 +106,7 @@ An example of the `Datum.txt` (header should not go into the .txt file):
 
 <br/>
 <div align="right">
-    <b><a href="#----">↥ back to top</a></b>
+    <b><a href="#top">↥ back to top</a></b>
 </div>
 <br/>
 
