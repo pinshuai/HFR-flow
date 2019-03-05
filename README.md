@@ -112,7 +112,6 @@ An example of the `Datum.txt` (header should not go into the .txt file):
 
 [/]:# (hidden comment)
 
-[/]:# ([return to the top](#top))
 
 <a id='input_deck'></a>
 ### PFLOTRAN input deck
@@ -132,7 +131,11 @@ A sample hydraulic properties are listed below:
 |Ringold Lower Mud (Rlm)|1e-12|1|
 |Ringold A (Ra)|1e-12|1|
 
-[return to the top](#top)
+<br/>
+<div align="right">
+    <b><a href="#top">↥ back to top</a></b>
+</div>
+<br/>
 
 <a id='submit-and-run'></a>
 ### Submit and run jobs on NERSC
@@ -140,7 +143,7 @@ A sample hydraulic properties are listed below:
 
 An example batch script:
 
-```bash
+``` bash
 #!/bin/bash -l
 
 #SBATCH -A m1800
@@ -156,7 +159,11 @@ cd $SLURM_SUBMIT_DIR
 
 srun -n 4096 /global/project/projectdirs/pflotran/pflotran-edison/src/pflotran/pflotran -pflotranin pflotran.in
 ```
-[return to the top](#top)
+<br/>
+<div align="right">
+    <b><a href="#top">↥ back to top</a></b>
+</div>
+<br/>
 
 <a id='post-process'></a>
 ### Post-processes 
@@ -171,7 +178,11 @@ This section has some `python` script for post-processing data from PFLOTRAN out
 |:----:|
 |*A snapshot of Paraview*|
 
-[return to the top](#top)
+<br/>
+<div align="right">
+    <b><a href="#top">↥ back to top</a></b>
+</div>
+<br/>
 
 <a id='plot-flux-from-massbalance'></a>
 #### Plot flux across riverbed from mass balance output 
@@ -217,7 +228,11 @@ Run [NERSC-plot_simu_obs_well_data.ipynb](NERSC-plot_simu_obs_well_data.ipynb) t
 |:----:|
 |*Tracer BTC against observation data plot generated from the notebook*|
 
-[return to the top](#top)
+<br/>
+<div align="right">
+    <b><a href="#top">↥ back to top</a></b>
+</div>
+<br/>
 
 <a id='miscellaneous'></a>
 ### Miscellaneous
@@ -256,7 +271,11 @@ note: table name above begin with "v" indiates it is a view that Patrick created
 #### Rewrite HDF5
 * Run [rewrite_hdf5_file.ipynb](rewrite_hdf5_file.ipynb) to rewrite PFLOTRAN output `HDF5` file.
 
-[return to the top](#top)
+<br/>
+<div align="right">
+    <b><a href="#top">↥ back to top</a></b>
+</div>
+<br/>
 
 
 
