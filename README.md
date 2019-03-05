@@ -112,7 +112,7 @@ An example of the `Datum.txt` (header should not go into the .txt file):
 
 [/]:# (hidden comment)
 
-[/]:# (return to the top)
+[/]:# ([return to the top](#top))
 
 <a id='input_deck'></a>
 ### PFLOTRAN input deck
