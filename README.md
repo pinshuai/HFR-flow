@@ -104,7 +104,11 @@ An example of the `Datum.txt` (header should not go into the .txt file):
 |----|
 |*Figure showing model domain*|
 
-
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 [return to the top](#top)
 
