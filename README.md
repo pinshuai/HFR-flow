@@ -1,4 +1,6 @@
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow.git/master)
+
 <a id='top'></a>
 
 # Workflow for simulations in PFLOTRAN
