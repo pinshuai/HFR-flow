@@ -1,7 +1,8 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow.git/master "Open the Repository and Execute in Binder")
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pinshuai/HFR-flow/blob/master/workflow.ipynb "Open the Notebook and Execute in Google Colaboratory")
-[//]: <> ([![DOI](.github/badges/doi.svg)](https://doi.org/10.1029/2018WR024193))
-[//]: <> (This is also a comment.)
+
+[//]: # (This is also a comment.)
+
 [/]: # (hidden comment)
 
 <a id='top'></a>
