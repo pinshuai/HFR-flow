@@ -6,6 +6,11 @@ dependencies:
   - R
   - numpy
   - scipy
+  - h5py
+  - geopandas
+  - descartes
+  - natsort
+  - sklearn
   - pip
   - ipywidgets>=0.6.0
   - pip:
