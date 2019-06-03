@@ -1,4 +1,4 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow.git/master "Open the Repository and Execute in Binder")
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow/master?filepath=workflow.ipynb "Open the Repository and Execute in Binder")
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pinshuai/HFR-flow/blob/master/workflow.ipynb "Open the Notebook and Execute in Google Colaboratory")
 
 [//]: # (This is also a comment.)
