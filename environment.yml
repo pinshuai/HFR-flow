@@ -1,19 +1,7 @@
-name: example-environment
+name: HFR-flow
 channels:
   - conda-forge
 dependencies:
-  - python
-  - numpy
-  - scipy
-  - h5py
-  - geopandas
-  - descartes
-  - natsort
-  - sklearn
-  - pip
-  - ipywidgets>=0.6.0
+  - python=3.6
   - pip:
-    - nbgitpuller
-    - sphinx-gallery
-    - pandas
-    - matplotlib
+    - -r requirements.txt
