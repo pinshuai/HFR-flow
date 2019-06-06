@@ -23,7 +23,7 @@ The following workflow provides some guidance on running flow and transport mode
     * [Generate material ids and river faces](#material-river-face)
     * [Generate initial head and inland boundary](#initial-head)
     * [Generate river boundary](#river-bc)
-* [PFLOTRAN input deck](#input_deck)
+    * [PFLOTRAN input deck](#input_deck)
 * [Submit and run jobs on NERSC](#submit-and-run)
 * [Post-processes](#post-process)
     * [Visulization in Paraview](#plot-in-paraview)
