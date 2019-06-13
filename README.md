@@ -1,4 +1,4 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow.git/master "Open the Repository and Execute in Binder")
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow/master?filepath=workflow.ipynb "Open the Repository and Execute in Binder")
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pinshuai/HFR-flow/blob/master/workflow.ipynb "Open the Notebook and Execute in Google Colaboratory")
 
 [//]: # (This is also a comment.)
@@ -23,7 +23,7 @@ The following workflow provides some guidance on running flow and transport mode
     * [Generate material ids and river faces](#material-river-face)
     * [Generate initial head and inland boundary](#initial-head)
     * [Generate river boundary](#river-bc)
-* [PFLOTRAN input deck](#input_deck)
+    * [PFLOTRAN input deck](#input_deck)
 * [Submit and run jobs on NERSC](#submit-and-run)
 * [Post-processes](#post-process)
     * [Visulization in Paraview](#plot-in-paraview)
