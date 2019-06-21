@@ -25,7 +25,7 @@ The following workflow provides some guidance on running flow and transport mode
     * [Generate river boundary](#river-bc)
     * [PFLOTRAN input deck](#input_deck)
 * [Submit and run jobs on NERSC](#submit-and-run)
-* [Post-processes](#post-process)
+* [Post-processes](#post-process)p[]
     * [Visulization in Paraview](#plot-in-paraview)
     * [Plot flux across riverbed from mass balance output](#plot-flux-from-massbalance)
     * [Plot flux across riverbed from river cells](#plot-flux-from-river-cells)
