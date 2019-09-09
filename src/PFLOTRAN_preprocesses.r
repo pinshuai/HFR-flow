@@ -1,7 +1,7 @@
 
-setwd("/Users/shua784/Dropbox/PNNL/Projects/Reach_scale_model/")
-paste("Working dir: ", getwd())
-rm(list=ls())
+# setwd("/Users/shua784/Dropbox/PNNL/Projects/Reach_scale_model/")
+# paste("Working dir: ", getwd())
+# rm(list=ls())
 
 # install.packages("pacman")
 # pacman::p_load(fields, AtmRay, maptools, raster, plot3D, rhdf5, scatterplot3d, akima, rgl, gtools, sp, ggplot2, 
