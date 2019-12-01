@@ -205,7 +205,7 @@
 # 
 # <a id='plot-flux-from-river-cells'></a>
 # #### Plot flux across riverbed from river cells
-# Run [NERSC-plot_flux_from_river_cells.ipynb](notebooks/NERSC-plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
+# Run [NERSC-plot_flux_from_river_cells.ipynb](../notebooks/NERSC-plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
 # 
 # |![flux_river_cell.jpg](../figures/flux_river_cell.jpg)|
 # |:----:|
@@ -213,7 +213,7 @@
 # 
 # <a id='plot-wl'></a>
 # #### Plot groundwater level
-# Run [NERSC-plot_gw_level.ipynb](notebooks/NERSC-plot_gw_level.ipynb) to generate groundwater level contours.
+# Run [NERSC-plot_gw_level.ipynb](../notebooks/NERSC-plot_gw_level.ipynb) to generate groundwater level contours.
 # 
 # |![wl.png](../figures/wl.png)|
 # |:----:|
@@ -221,11 +221,11 @@
 # 
 # <a id='plot-age'></a>
 # #### Plot groundwater age
-# Run [NERSC-plot_gw_age.ipynb](notebooks/NERSC-plot_gw_age.ipynb) to generate groundwater age contours.
+# Run [NERSC-plot_gw_age.ipynb](../notebooks/NERSC-plot_gw_age.ipynb) to generate groundwater age contours.
 # 
 # <a id='plot-solute'></a>
 # #### Plot solute contour
-# Run [NERSC-plot_solute_contour.ipynb](notebooks/NERSC-plot_solute_contour.ipynb) to generate solute concentration plots.
+# Run [NERSC-plot_solute_contour.ipynb](../notebooks/NERSC-plot_solute_contour.ipynb) to generate solute concentration plots.
 # 
 # |![tracer.png](../figures/tracer.png)|
 # |:----:|
@@ -233,7 +233,7 @@
 # 
 # <a id='plot-simu-obs'></a>
 # #### Plot simulation against observation
-# Run [NERSC-plot_simu_obs_well_data.ipynb](notebooks/NERSC-plot_simu_obs_well_data.ipynb) to generate tracer breakthough curves.
+# Run [NERSC-plot_simu_obs_well_data.ipynb](../notebooks/NERSC-plot_simu_obs_well_data.ipynb) to generate tracer breakthough curves.
 # 
 # |![Well_399-1-1_sup.jpg](../figures/Well_399-1-1_sup.jpg)|
 # |:----:|
