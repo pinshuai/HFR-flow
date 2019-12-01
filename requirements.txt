@@ -1,9 +1,0 @@
-numpy
-pandas
-scipy
-pillow
-matplotlib
-seaborn
-jupyter
-notebook
-h5py
