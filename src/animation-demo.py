@@ -1,21 +1,28 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[32]:
 
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-# In[ ]:
+# In[34]:
 
 
 fig,ax = plt.subplots(1,1)
 
-x = np.arange(0, 2*np.pi, 0.1)
-y = np.sin(x)
-ax.plot(x, y)
+t = np.arange(0, 24, 1)
+y = np.sin(2*np.pi*t/24) + 105
+ax.plot(t, y)
+
+
+# In[42]:
+
+
+dat = np.array((t, np.zeros(len(t)), np.zeros(len(t)),y))
+np.savetxt('stage.txt', dat.T, fmt='%.2f', header = 'TIME_UNITS hr\nDATA_UNITS m', comments='')
 
 
 # add moving line

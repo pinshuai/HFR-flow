@@ -1,0 +1,13 @@
+name: HFR-flow
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - pillow
+  - matplotlib
+  - seaborn
+  - h5py

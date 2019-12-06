@@ -1,5 +1,5 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow/master?filepath=workflow.ipynb "Open the Repository and Execute in Binder")
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pinshuai/HFR-flow/blob/master/workflow.ipynb "Open the Notebook and Execute in Google Colaboratory")
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pinshuai/HFR-flow/master?filepath=notebooks/workflow.ipynb "Open the Repository and Execute in Binder")
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pinshuai/HFR-flow/blob/master/notebooks/workflow.ipynb "Open the Notebook and Execute in Google Colaboratory")
 
 [//]: # (This is also a comment.)
 
@@ -7,7 +7,7 @@
 
 <a id='top'></a>
 
-# Workflow for simulations in PFLOTRAN
+# Workflow for PFLOTRAN simulations 
 
 The following workflow provides some guidance on running flow and transport model using [PFLOTRAN](https://www.pflotran.org/). This workflow has been used to generate a reach scale flow and transport model for the Hanford Reach, Washington. The simulation results have recently been published in Water Resources Research. 
 
@@ -43,7 +43,7 @@ The following workflow provides some guidance on running flow and transport mode
 
 <a id='pre-process'></a>
 ### Model pre-processes
-Run [PFLOTRAN_preprocesses.ipynb](PFLOTRAN_preprocesses.ipynb) to configurate model setup (model domain, parameters, inital conditions and boundary conditions and etc.) This Jupyter Notebook uses R as the kernel.
+Run [PFLOTRAN_preprocesses.ipynb](notebooks/PFLOTRAN_preprocesses.ipynb) to configurate model setup (model domain, parameters, inital conditions and boundary conditions and etc.) This Jupyter Notebook uses R as the kernel.
 
 <a id='inputs'></a>
 #### Model inputs
@@ -121,7 +121,7 @@ An example of the `Datum.txt` (header should not go into the .txt file):
 
 <a id='input_deck'></a>
 ### PFLOTRAN input deck
-Run [PFLOTRAN_input_deck.ipynb](PFLOTRAN_input_deck.ipynb) to generate PFLOTRAN input deck for the model. This notebook uses `R` as the kernel. Right now, the `sink` and `cat` function do not work properly in Jupyter Notebook. The alternative is to export this notebook as `R script`, and use `Rstudio` to execute. 
+Run [PFLOTRAN_input_deck.ipynb](notebooks/PFLOTRAN_input_deck.ipynb) to generate PFLOTRAN input deck for the model. This notebook uses `R` as the kernel. Right now, the `sink` and `cat` function do not work properly in Jupyter Notebook. The alternative is to export this notebook as `R script`, and use `Rstudio` to execute. 
 
 A set of parameters can be set: `model run time, timestep, hydraulic properties, river conductance, observation wells, output variables and file format and etc.` A sample pflotran input deck can be found [here](https://www.pflotran.org/documentation/user_guide/how_to/simple_flow_problem.html#simple-flow-problem).
 **Output**: `pflotran.in`
@@ -145,7 +145,7 @@ A sample hydraulic properties are listed below:
 
 <a id='submit-and-run'></a>
 ### Submit and run jobs on NERSC
-[run_job_on_NERSC.ipynb](run_job_on_NERSC.ipynb) has some batch script to submit, monitor and modify jobs on NERSC.
+[run_job_on_NERSC.ipynb](notebooks/run_job_on_NERSC.ipynb) has some batch script to submit, monitor and modify jobs on NERSC.
 
 An example batch script:
 
@@ -179,6 +179,8 @@ This section has some `python` script for post-processing data from PFLOTRAN out
 #### Visulization in Paraview
 [Paraview](https://www.paraview.org/) can be easily used to open PFLOTRAN output `HDF5` file (i.e. `pflotran.h5`). It visulizes the model in 3-D and can be used to export plots and animations. For detailed instruction, please take a look at [Paraview manual](https://www.paraview.org/paraview-guide/). 
 
+Paraview can also be run in batch mode on NERSC [documentation](https://docs.nersc.gov/applications/paraview/#running-in-batch-mode). 
+
 
 |![paraview_snapshot.png](figures/paraview_snapshot.png)|
 |:----:|
@@ -192,7 +194,7 @@ This section has some `python` script for post-processing data from PFLOTRAN out
 
 <a id='plot-flux-from-massbalance'></a>
 #### Plot flux across riverbed from mass balance output 
-Run [NERSC-plot_flux_from_massBalance.ipynb](NERSC-plot_flux_from_massBalance.ipynb) to generate flux heat map, net gaining and flux snapshots.
+Run [NERSC-plot_flux_from_massBalance.ipynb](notebooks/NERSC-plot_flux_from_massBalance.ipynb) to generate flux heat map, net gaining and flux snapshots.
 
 |![flux_heatmap.jpg](figures/flux_heatmap.jpg)|
 |:----:|
@@ -200,7 +202,7 @@ Run [NERSC-plot_flux_from_massBalance.ipynb](NERSC-plot_flux_from_massBalance.ip
 
 <a id='plot-flux-from-river-cells'></a>
 #### Plot flux across riverbed from river cells
-Run [NERSC-plot_flux_from_river_cells.ipynb](NERSC-plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
+Run [NERSC-plot_flux_from_river_cells.ipynb](notebooks/NERSC-plot_flux_from_river_cells.ipynb) to pre-process h5 outputs and generate absolute exchange bar plots.
 
 |![flux_river_cell.jpg](figures/flux_river_cell.jpg)|
 |:----:|
@@ -208,7 +210,7 @@ Run [NERSC-plot_flux_from_river_cells.ipynb](NERSC-plot_flux_from_river_cells.ip
 
 <a id='plot-wl'></a>
 #### Plot groundwater level
-Run [NERSC-plot_gw_level.ipynb](NERSC-plot_gw_level.ipynb) to generate groundwater level contours.
+Run [NERSC-plot_gw_level.ipynb](notebooks/NERSC-plot_gw_level.ipynb) to generate groundwater level contours.
 
 |![wl.png](figures/wl.png)|
 |:----:|
@@ -216,11 +218,11 @@ Run [NERSC-plot_gw_level.ipynb](NERSC-plot_gw_level.ipynb) to generate groundwat
 
 <a id='plot-age'></a>
 #### Plot groundwater age
-Run [NERSC-plot_gw_age.ipynb](NERSC-plot_gw_age.ipynb) to generate groundwater age contours.
+Run [NERSC-plot_gw_age.ipynb](notebooks/NERSC-plot_gw_age.ipynb) to generate groundwater age contours.
 
 <a id='plot-solute'></a>
 #### Plot solute contour
-Run [NERSC-plot_solute_contour.ipynb](NERSC-plot_solute_contour.ipynb) to generate solute concentration plots.
+Run [NERSC-plot_solute_contour.ipynb](notebooks/NERSC-plot_solute_contour.ipynb) to generate solute concentration plots.
 
 |![tracer.png](figures/tracer.png)|
 |:----:|
@@ -228,7 +230,7 @@ Run [NERSC-plot_solute_contour.ipynb](NERSC-plot_solute_contour.ipynb) to genera
 
 <a id='plot-simu-obs'></a>
 #### Plot simulation against observation
-Run [NERSC-plot_simu_obs_well_data.ipynb](NERSC-plot_simu_obs_well_data.ipynb) to generate tracer breakthough curves.
+Run [NERSC-plot_simu_obs_well_data.ipynb](notebooks/NERSC-plot_simu_obs_well_data.ipynb) to generate tracer breakthough curves.
 
 |![Well_399-1-1_sup.jpg](figures/Well_399-1-1_sup.jpg)|
 |:----:|
@@ -246,7 +248,7 @@ Other notebooks that are used for post-processing.
 
 <a id='sql'></a>
 #### Import data using SQL
-* Run [HEIS_data_retrieval.ipynb](HEIS_data_retrieval.ipynb) to retrive **well data** from HEIS. The common database names are listed here:
+* Run [HEIS_data_retrieval.ipynb](notebooks/HEIS_data_retrieval.ipynb) to retrive **well data** from HEIS. The common database names are listed here:
 
 |Table name| Description|
 |----------|------------|
@@ -263,19 +265,19 @@ note: table name above begin with "v" indiates it is a view that Patrick created
 
 <a id='plot-chem'></a>
 #### Plot groundwater chemistry data
-* Run [NERSC-plot_GW_chemical_dataset.ipynb](NERSC-plot_GW_chemical_dataset.ipynb) to analyze groundwater chemistry data downloaded from HEIS.
+* Run [NERSC-plot_GW_chemical_dataset.ipynb](notebooks/NERSC-plot_GW_chemical_dataset.ipynb) to analyze groundwater chemistry data downloaded from HEIS.
 
 <a id='imagemagick'></a>
 #### Batch process figures in ImageMagick
-* Run [ImageMagic.ipynb](ImageMagic.ipynb) to batch process figures using [ImageMagic](https://www.imagemagick.org/).
+* Run [ImageMagic.ipynb](notebooks/ImageMagic.ipynb) to batch process figures using [ImageMagic](https://www.imagemagick.org/).
 
 <a id='spectral'></a>
 #### Spectral analysis
-* Run [river_stage_flux_spectral_analysis.ipynb](river_stage_flux_spectral_analysis.ipynb) to use spectral analysis (`FFT` and `Wavelet`) in `R` for time series data.
+* Run [river_stage_flux_spectral_analysis.ipynb](notebooks/river_stage_flux_spectral_analysis.ipynb) to use spectral analysis (`FFT` and `Wavelet`) in `R` for time series data.
 
 <a id='h5'></a>
 #### Rewrite HDF5
-* Run [rewrite_hdf5_file.ipynb](rewrite_hdf5_file.ipynb) to rewrite PFLOTRAN output `HDF5` file.
+* Run [rewrite_hdf5_file.ipynb](notebooks/rewrite_hdf5_file.ipynb) to rewrite PFLOTRAN output `HDF5` file.
 
 <br/>
 <div align="right">
