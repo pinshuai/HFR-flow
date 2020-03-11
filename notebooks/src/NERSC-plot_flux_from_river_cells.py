@@ -8,7 +8,11 @@ import sys
 sys.version
 
 
+<<<<<<< HEAD
 # In[ ]:
+=======
+# In[1]:
+>>>>>>> 91ad07e9b43516d98bcf00ad90579ba63084f7c9
 
 
 import numpy as np
