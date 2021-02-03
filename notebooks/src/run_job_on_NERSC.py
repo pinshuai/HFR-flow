@@ -79,18 +79,6 @@ import os
 os.chdir("/global/cscratch1/sd/pshuai/TH_cp_high")
 
 
-# In[3]:
-
-
-get_ipython().system('pwd')
-
-
-# In[4]:
-
-
-get_ipython().system('ls')
-
-
 # In[8]:
 
 
