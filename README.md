@@ -13,6 +13,8 @@ The following workflow provides some guidance on running flow and transport mode
 
 **Shuai, P.**, X. Chen, X. Song, G. Hammond, J. Zachara, P. Royer, H. Ren, W. Perkins, M. Richmond, M. Huang (2018). Dam Operations and Subsurface Hydrogeology Control Dynamics of Hydrologic Exchange Flows in a Regulated River Reach. *Water Resources Research*. https://doi.org/10.1029/2018WR024193
 
+**New!** The dataset associated with the publication can be found on Zenodo: https://zenodo.org/records/21655113
+
 *Software needed in the workflow*: [Jupyter Notebook](https://jupyter.org), [Paraview](https://www.paraview.org), [HDFView](www.hdfgroup.org)
 
 ## Table of Contents
